@@ -9,17 +9,16 @@ import SingleAccomodationType from './SingleAccomodationType';
 const AccomodationTypeDetail = ({
   accomodationTypes,
   propertiesTypeId,
-  isLoading
+  isLoading,
+  getAccomodationTypesById
 }) => {
   const [propertyType, setPropertyType] = useState({});
   useEffect(() => {
     if (accomodationTypes.length > 0) {
-      const propertyTypeById = accomodationTypes.find(
-        item => item.id === parseInt(propertiesTypeId, 10)
-      );
+      const propertyTypeById = getAccomodationTypesById(propertiesTypeId);
       setPropertyType(propertyTypeById);
     }
-  }, [accomodationTypes, propertiesTypeId]);
+  }, [accomodationTypes.length, getAccomodationTypesById, propertiesTypeId]);
 
   const { type, accomodations } = propertyType;
 
