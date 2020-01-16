@@ -1,0 +1,51 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  padding: 0;
+  margin: 0;
+  line-height: 1.2;
+  font-weight: $fontSemiBold;
+}
+
+h1 {
+  font-size: 3.2rem;
+
+  @include breakpoint('phone') {
+    font-size: 2rem;
+  }
+}
+
+h2 {
+  font-size: 2.4rem;
+
+  @include breakpoint('phone') {
+    font-size: 1.8rem;
+  }
+}
+
+// Spinner
+.loaderPath {
+  animation: spin 500ms infinite linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+    transform-origin: center center;
+  }
+  100% {
+    transform: rotate(360deg);
+    transform-origin: center center;
+  }
+}

@@ -1,0 +1,14 @@
+@import './variables';
+@import './mixins';
+
+#root {
+  height: 100%;
+  @include flex;
+  @include flex-direction(column);
+  background-color: $bodyColor;
+}
+.main {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
