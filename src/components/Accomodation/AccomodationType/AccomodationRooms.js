@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { getAccomodationAvailableData } from '../services/accomodation_available';
+import { getRoomsByAvailability } from '../services/getRoomsByAvailability';
 
 const AccomodationRooms = ({ rooms }) => {
   const [availableRooms, setAvailableRooms] = useState([]);
@@ -17,19 +18,8 @@ const AccomodationRooms = ({ rooms }) => {
     fetchAvailableRooms();
   }, [fetchAvailableRooms]);
 
-  const getRoomsByAvailability = () => {
-    let allRooms = [];
-    allRooms = rooms.map(item => {
-      const filteredByAvailability = availableRooms.filter(x => {
-        return x.id === item.id;
-      });
-
-      return { room: item, availability: filteredByAvailability };
-    });
-    return allRooms;
-  };
-  const roomsAvailableById = getRoomsByAvailability();
-
+  const roomsAvailableById = getRoomsByAvailability(rooms, availableRooms);
+  console.log(roomsAvailableById);
   return <></>;
 };
 
