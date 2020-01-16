@@ -1,8 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './Styles.module.scss';
-import accomodationData from '../../data/accommodation';
-import { getAccomodationData } from './services/accomodation';
-import { getAccomodationTypeByName } from './services/accomodationType';
 import PageLoader from '../loader/PageLoader';
 import { AccomodationContext } from '../../context/AccomodationContext';
 import AccomodationTypes from './AccomodationTypes/AccomodationTypes';
