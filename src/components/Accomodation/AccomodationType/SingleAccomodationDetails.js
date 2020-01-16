@@ -4,6 +4,7 @@ import Preloader from '../../loader/PageLoader';
 import GlobalContainer from '../../../styles/GlobalContainer';
 import styles from './Styles.module.scss';
 import _isEmpty from 'lodash/isEmpty';
+import AccomodationRooms from './AccomodationRooms';
 
 const SingleAccomodationDetails = props => {
   const id = props.match.params.id;
@@ -29,7 +30,6 @@ const SingleAccomodationDetails = props => {
   }, [displayAccomodationDetails]);
 
   const { name, description, location, facilities, rooms } = accomodation;
-  console.log(facilities);
   return (
     <Preloader isLoading={isLoading}>
       <GlobalContainer>
@@ -50,22 +50,31 @@ const SingleAccomodationDetails = props => {
               />
             </div>
             <div className='col-xs-12 col-sm-6'>
-              <h3 className={styles.innerTitle}>Facilities:</h3>
-              <ul className={styles.innerList}>
-                {!_isEmpty(facilities) ? (
-                  facilities.map((item, index) => {
-                    return (
-                      <li className={styles.facilityItem} key={item.id}>
-                        <span className={styles.facilityNumber}>{`${index +
-                          1}`}</span>
-                        <span>{item.label}</span>
-                      </li>
-                    );
-                  })
-                ) : (
-                  <p>No facilities</p>
-                )}
-              </ul>
+              <div className='row'>
+                <div className='col-xs-12 col-md-6'>
+                  <h3 className={styles.innerTitle}>Facilities:</h3>
+                  <ul className={styles.innerList}>
+                    {!_isEmpty(facilities) ? (
+                      facilities.map((item, index) => {
+                        return (
+                          <li className={styles.facilityItem} key={item.id}>
+                            <span className={styles.facilityNumber}>{`${index +
+                              1}`}</span>
+                            <span>{item.label}</span>
+                          </li>
+                        );
+                      })
+                    ) : (
+                      <p>No facilities</p>
+                    )}
+                  </ul>
+                </div>
+
+                <div className='col-xs-12 col-md-6'>
+                  <h3 className={styles.innerTitle}>Rooms:</h3>
+                  <AccomodationRooms rooms={rooms} />
+                </div>
+              </div>
             </div>
           </div>
         </div>
