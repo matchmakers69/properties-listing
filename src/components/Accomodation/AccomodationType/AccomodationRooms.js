@@ -5,13 +5,16 @@ import { getRoomsByAvailability } from '../services/getRoomsByAvailability';
 import _isEmpty from 'lodash/isEmpty';
 import styles from './Styles.module.scss';
 import AccomodationRoomsDetails from './AccomodationRoomsDetails';
+import Preloader from '../../loader/PageLoader';
 
 const AccomodationRooms = ({ rooms }) => {
   const [availableRooms, setAvailableRooms] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const fetchAvailableRooms = useCallback(async () => {
     try {
       const rooms_available = await getAccomodationAvailableData();
       setAvailableRooms(rooms_available);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -24,7 +27,7 @@ const AccomodationRooms = ({ rooms }) => {
   const roomsAvailableById = getRoomsByAvailability(rooms, availableRooms);
 
   return (
-    <>
+    <Preloader isLoading={isLoading}>
       <ul className={styles.typesList}>
         {!_isEmpty(roomsAvailableById) ? (
           roomsAvailableById.map(item => {
@@ -41,7 +44,7 @@ const AccomodationRooms = ({ rooms }) => {
           <p>No available room </p>
         )}
       </ul>
-    </>
+    </Preloader>
   );
 };
 
