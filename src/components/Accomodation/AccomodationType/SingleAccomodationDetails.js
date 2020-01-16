@@ -51,7 +51,7 @@ const SingleAccomodationDetails = props => {
             </div>
             <div className='col-xs-12 col-sm-6'>
               <div className='row'>
-                <div className='col-xs-12 col-md-6'>
+                <div className='col-xs-12  col-md-6'>
                   <h3 className={styles.innerTitle}>Facilities:</h3>
                   <ul className={styles.innerList}>
                     {!_isEmpty(facilities) ? (

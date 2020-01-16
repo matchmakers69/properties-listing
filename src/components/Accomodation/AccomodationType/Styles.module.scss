@@ -40,7 +40,7 @@
   }
 }
 
-// Room title
+// Room details
 .roomTypeTitle {
   color: $darkOrange;
   font-size: 16px;
@@ -56,7 +56,8 @@
     margin-bottom: 10px;
     font-size: 14px;
     .typesWrapper {
-      margin-bottom: 5px;
+      margin-bottom: 8px;
+      line-height: 1.3;
       .typesHeader {
         font-size: 14px;
         @include flex;
@@ -66,6 +67,31 @@
           padding-left: 5px;
         }
       }
+    }
+  }
+}
+
+.availabilityWrapper {
+  padding: 15px 0;
+  .availabilityTitle {
+    color: $navyGrey;
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+}
+
+.roomsInformationList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  li {
+    @include flex;
+    @include flex-direction(column);
+    width: 100%;
+    span {
+      @include flex;
+      margin-bottom: 5px;
+      font-size: 14px;
     }
   }
 }
