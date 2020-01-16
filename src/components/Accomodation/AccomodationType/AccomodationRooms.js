@@ -24,8 +24,7 @@ const AccomodationRooms = ({ rooms }) => {
   const roomsAvailableById = getRoomsByAvailability(rooms, availableRooms);
 
   return (
-    <div>
-      <h3 className={styles.roomTypeTitle}>Room type</h3>
+    <>
       <ul className={styles.typesList}>
         {!_isEmpty(roomsAvailableById) ? (
           roomsAvailableById.map(item => {
@@ -42,7 +41,7 @@ const AccomodationRooms = ({ rooms }) => {
           <p>No available room </p>
         )}
       </ul>
-    </div>
+    </>
   );
 };
 

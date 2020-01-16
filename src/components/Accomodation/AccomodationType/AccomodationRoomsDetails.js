@@ -18,6 +18,7 @@ const AccomodationRoomsDetails = ({ room, availability }) => {
 
   return (
     <li>
+      <h3 className={styles.roomTypeTitle}>Room type</h3>
       <div className={styles.typesWrapper}>
         <h4 className={styles.typesHeader}>
           Name: <p>{name}</p>
