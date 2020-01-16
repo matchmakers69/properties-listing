@@ -29,10 +29,10 @@ const AccomodationRoomsDetails = ({ room, availability }) => {
           Type: <p>{type}</p>
         </h4>
       </div>
-      <div className={styles.typesWrapper}>
-        <h4 className={styles.typesHeader}>
+      <div className={styles.priceWrapper}>
+        <h3 className={styles.typesPrice}>
           Price: <p>{priceRoom}</p>
-        </h4>
+        </h3>
       </div>
       <div className={styles.typesWrapper}>
         <h4 className={styles.typesHeader}>
@@ -64,7 +64,7 @@ const AccomodationRoomsDetails = ({ room, availability }) => {
               );
             })
           ) : (
-            <p>Sorry, currently we don not have any information</p>
+            <p className={styles.soldOutAlert}>Sold Out</p>
           )}
         </ul>
       </div>
