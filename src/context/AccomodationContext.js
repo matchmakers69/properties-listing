@@ -35,15 +35,32 @@ export class AccomodationProvider extends Component {
     this._isMounted = false;
   };
 
+  getAccomodationTypesById = id => {
+    const { accomodation } = this.state;
+    const accomodationTypes = getAccomodationTypeByName(accomodation);
+    let accomodationType = null;
+    accomodationType = accomodationTypes.find(
+      item => item.id === parseInt(id, 10)
+    );
+
+    return accomodationType;
+  };
+
+  // getNestetAccomodations = id => {
+  //   const accomodationType = this.getAccomodationTypesById(id);
+  //   console.log(accomodationType.accomodations);
+  // }
+
   render() {
     const { accomodation } = this.state;
-
     const accomodationTypes = getAccomodationTypeByName(accomodation);
+
     return (
       <AccomodationContext.Provider
         value={{
           ...this.state,
-          accomodationTypes: accomodationTypes
+          accomodationTypes: accomodationTypes,
+          getAccomodationTypesById: this.getAccomodationTypesById
         }}
       >
         {this.props.children}
