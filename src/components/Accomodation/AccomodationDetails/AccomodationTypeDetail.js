@@ -22,6 +22,23 @@ const AccomodationTypeDetail = ({
 
   const { type, accomodations } = propertyType;
 
+  const getAccomodationType = accomodation => {
+    const {
+      rating: { label }
+    } = accomodation;
+    const rateIsAvailable = label !== 'N/A' ? label : '0*';
+    const convertedRateToString = rateIsAvailable.replace(/[^0-9.-]+/g, '');
+    const rateAsNumber = parseInt(convertedRateToString, 10);
+    const accomodationRate = rateAsNumber !== 0 ? rateAsNumber : 'no';
+    return (
+      <SingleAccomodationType
+        key={accomodation.id}
+        accomodation={accomodation}
+        accomodationRate={accomodationRate}
+      />
+    );
+  };
+
   return (
     <Preloader isLoading={isLoading}>
       <GlobalContainer>
@@ -34,15 +51,8 @@ const AccomodationTypeDetail = ({
             </div>
           </div>
           <div className='row'>
-            {!_isEmpty(accomodations) ? (
-              accomodations.map(accomodation => {
-                return (
-                  <SingleAccomodationType
-                    key={accomodation.id}
-                    accomodation={accomodation}
-                  />
-                );
-              })
+            {!_isEmpty(accomodations) && accomodations.length > 0 ? (
+              accomodations.map(getAccomodationType)
             ) : (
               <p>Sorry no accomodation here</p>
             )}

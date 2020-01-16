@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import AccomodationTypes from '../views/AccomodationTypes';
 import AccomodationTypesDetails from '../components/Accomodation/AccomodationDetails/AccomodationTypesDetails';
 import SingleAccomodationDetails from '../components/Accomodation/AccomodationType/SingleAccomodationDetails';
+import NotFound from './NotFound';
 
 export const Routes = () => {
   return (
@@ -18,6 +19,7 @@ export const Routes = () => {
         path='/accomodation-type/accomodation/:id'
         component={SingleAccomodationDetails}
       />
+      <Route component={NotFound} />
     </Switch>
   );
 };
