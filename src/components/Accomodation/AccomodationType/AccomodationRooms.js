@@ -48,4 +48,8 @@ const AccomodationRooms = ({ rooms }) => {
   );
 };
 
+AccomodationRooms.propTypes = {
+  rooms: PropTypes.instanceOf(Array).isRequired
+};
+
 export default AccomodationRooms;

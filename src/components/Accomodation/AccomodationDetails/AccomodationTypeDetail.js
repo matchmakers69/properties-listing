@@ -22,7 +22,7 @@ const AccomodationTypeDetail = ({
 
   const { type, accomodations } = propertyType;
 
-  const getAccomodationType = accomodation => {
+  const getAccomodationTypeList = accomodation => {
     const {
       rating: { label }
     } = accomodation;
@@ -52,7 +52,7 @@ const AccomodationTypeDetail = ({
           </div>
           <div className='row'>
             {!_isEmpty(accomodations) && accomodations.length > 0 ? (
-              accomodations.map(getAccomodationType)
+              accomodations.map(getAccomodationTypeList)
             ) : (
               <p>Sorry no accomodation here</p>
             )}

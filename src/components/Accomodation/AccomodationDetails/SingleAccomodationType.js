@@ -5,7 +5,8 @@ import _isNil from 'lodash/isNil';
 import { Link } from 'react-router-dom';
 
 const SingleAccomodationType = ({
-  accomodation: { name, images, rooms, id }
+  accomodationRate,
+  accomodation: { name, images, id }
 }) => {
   const imageObject =
     (images || !_isEmpty(images) || !_isNil(images)) && images[0];
@@ -20,12 +21,23 @@ const SingleAccomodationType = ({
           className={styles.accomodationBody}
         >
           <div className={styles.topWrapper}>
+            <button className={styles.viewMoreBtn}>View more</button>
             <img src={imgSrc} alt={imgAlt} />
           </div>
         </Link>
         <div className={styles.accomodationHeader}>
           <h3 className={styles.accomodationTitle}>{name}</h3>
         </div>
+
+        <footer className={styles.accomodationTypeFooter}>
+          <div className={styles.ratingWrapper}>
+            <p>
+              This property has{' '}
+              <span className={styles.starRating}>{accomodationRate}</span>{' '}
+              stars
+            </p>
+          </div>
+        </footer>
       </div>
     </div>
   );

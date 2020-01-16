@@ -8,6 +8,14 @@
     color: $redColor;
     font-weight: $fontBold;
   }
+
+  .accomodationType {
+    color: $dark-grey;
+    font-size: 12px;
+    font-weight: $fontSemiBold;
+    text-transform: uppercase;
+    display: block;
+  }
 }
 
 .innerTitle {

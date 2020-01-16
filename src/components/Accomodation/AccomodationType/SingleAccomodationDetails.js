@@ -4,6 +4,8 @@ import Preloader from '../../loader/PageLoader';
 import GlobalContainer from '../../../styles/GlobalContainer';
 import styles from './Styles.module.scss';
 import _isEmpty from 'lodash/isEmpty';
+import _isNull from 'lodash/isNull';
+import _isUndefined from 'lodash/isUndefined';
 import AccomodationRooms from './AccomodationRooms';
 
 const SingleAccomodationDetails = props => {
@@ -14,13 +16,12 @@ const SingleAccomodationDetails = props => {
   const displayAccomodationDetails = useCallback(async () => {
     try {
       const responseData = await getAccomodationData();
-      if (responseData.length > 0) {
-        const foundAccomodationById = responseData.find(
-          item => item.id === parseInt(id, 10)
-        );
-        setAccomodation(foundAccomodationById);
-        setIsLoading(false);
-      }
+
+      const foundAccomodationById = responseData.find(
+        item => item.id === parseInt(id, 10)
+      );
+      setAccomodation(foundAccomodationById);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -29,15 +30,34 @@ const SingleAccomodationDetails = props => {
     displayAccomodationDetails();
   }, [displayAccomodationDetails]);
 
-  const { name, description, location, facilities, rooms } = accomodation;
+  const accomodationFound =
+    !_isUndefined(accomodation) &&
+    !_isEmpty(accomodation) &&
+    !_isNull(accomodation)
+      ? accomodation
+      : {};
+
+  const {
+    name,
+    description,
+    location,
+    facilities,
+    rooms,
+    type
+  } = accomodationFound;
+  const accmodationType = !_isEmpty(type) || !_isUndefined(type) ? type : {};
+
   return (
-    <Preloader isLoading={isLoading}>
+    <Preloader data-test='pageLoader' isLoading={isLoading}>
       <GlobalContainer>
         <div className='container'>
           <div className='row'>
             <div className='col-xs-12'>
               <header className={styles.accomodationHeader}>
                 <h1 className={styles.accomodationTitle}>{name}</h1>
+                <span className={styles.accomodationType}>
+                  Property type: {accmodationType.name}
+                </span>
               </header>
             </div>
           </div>
