@@ -4,6 +4,7 @@ import { getAccomodationAvailableData } from '../services/accomodation_available
 import { getRoomsByAvailability } from '../services/getRoomsByAvailability';
 import _isEmpty from 'lodash/isEmpty';
 import styles from './Styles.module.scss';
+import AccomodationRoomsDetails from './AccomodationRoomsDetails';
 
 const AccomodationRooms = ({ rooms }) => {
   const [availableRooms, setAvailableRooms] = useState([]);
@@ -27,34 +28,14 @@ const AccomodationRooms = ({ rooms }) => {
       <h3 className={styles.roomTypeTitle}>Room type</h3>
       <ul className={styles.typesList}>
         {!_isEmpty(roomsAvailableById) ? (
-          roomsAvailableById.map((item, index) => {
+          roomsAvailableById.map(item => {
             const { room, availability } = item;
-            const {
-              id,
-              max_occupancy,
-              min_occupancy,
-              number_of_nights,
-              type,
-              name,
-              price
-            } = room;
-            const priceRoom = !_isEmpty(price)
-              ? price.price
-              : 'Sorry there is no price to be displayed!';
-            console.log(priceRoom);
             return (
-              <li key={id}>
-                <div className={styles.typesWrapper}>
-                  <h4 className={styles.typesHeader}>
-                    Name: <p>{name}</p>
-                  </h4>
-                </div>
-                <div className={styles.typesWrapper}>
-                  <h4 className={styles.typesHeader}>
-                    Type: <p>{type}</p>
-                  </h4>
-                </div>
-              </li>
+              <AccomodationRoomsDetails
+                key={room.id}
+                room={room}
+                availability={availability}
+              />
             );
           })
         ) : (
