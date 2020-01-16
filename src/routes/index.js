@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import AccomodationTypes from '../views/AccomodationTypes';
 import AccomodationTypesDetails from '../components/Accomodation/AccomodationDetails/AccomodationTypesDetails';
-import SingleAccomodation from '../components/Accomodation/AccomodationType/SingleAccomodation';
+import SingleAccomodationDetails from '../components/Accomodation/AccomodationType/SingleAccomodationDetails';
 
 export const Routes = () => {
   return (
@@ -16,7 +16,7 @@ export const Routes = () => {
       <Route
         exact
         path='/accomodation-type/accomodation/:id'
-        component={SingleAccomodation}
+        component={SingleAccomodationDetails}
       />
     </Switch>
   );

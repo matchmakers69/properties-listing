@@ -15,10 +15,16 @@ const SingleAccomodationType = ({
   return (
     <div className='col-xs-12 col-sm-6 col-md-4 margin-bottom'>
       <div className={styles.innerWrapper}>
-        <div className={styles.accomodationBody}>
+        <Link
+          to={`/accomodation-type/accomodation/${id}`}
+          className={styles.accomodationBody}
+        >
           <div className={styles.topWrapper}>
             <img src={imgSrc} alt={imgAlt} />
           </div>
+        </Link>
+        <div className={styles.accomodationHeader}>
+          <h3 className={styles.accomodationTitle}>{name}</h3>
         </div>
       </div>
     </div>
