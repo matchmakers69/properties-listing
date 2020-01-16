@@ -2,6 +2,8 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { getAccomodationData } from '../services/accomodation';
 import Preloader from '../../loader/PageLoader';
 import GlobalContainer from '../../../styles/GlobalContainer';
+import styles from './Styles.module.scss';
+import _isEmpty from 'lodash/isEmpty';
 
 const SingleAccomodationDetails = props => {
   const id = props.match.params.id;
@@ -27,13 +29,44 @@ const SingleAccomodationDetails = props => {
   }, [displayAccomodationDetails]);
 
   const { name, description, location, facilities, rooms } = accomodation;
-
+  console.log(facilities);
   return (
     <Preloader isLoading={isLoading}>
       <GlobalContainer>
         <div className='container'>
           <div className='row'>
-            <div className='col-xs-12'></div>
+            <div className='col-xs-12'>
+              <header className={styles.accomodationHeader}>
+                <h1 className={styles.accomodationTitle}>{name}</h1>
+              </header>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col-xs-12 col-sm-6'>
+              <h3 className={styles.innerTitle}>Description:</h3>
+              <div
+                dangerouslySetInnerHTML={{ __html: description }}
+                className={styles.accomodationParagraph}
+              />
+            </div>
+            <div className='col-xs-12 col-sm-6'>
+              <h3 className={styles.innerTitle}>Facilities:</h3>
+              <ul className={styles.innerList}>
+                {!_isEmpty(facilities) ? (
+                  facilities.map((item, index) => {
+                    return (
+                      <li className={styles.facilityItem} key={item.id}>
+                        <span className={styles.facilityNumber}>{`${index +
+                          1}`}</span>
+                        <span>{item.label}</span>
+                      </li>
+                    );
+                  })
+                ) : (
+                  <p>No facilities</p>
+                )}
+              </ul>
+            </div>
           </div>
         </div>
       </GlobalContainer>

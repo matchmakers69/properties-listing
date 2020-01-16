@@ -1,0 +1,41 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.accomodationHeader {
+  margin-bottom: 30px;
+  .accomodationTitle {
+    font-size: 3.2rem;
+    color: $redColor;
+    font-weight: $fontBold;
+  }
+}
+
+.innerTitle {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: $fontSemiBold;
+}
+
+.innerList {
+  list-style: none;
+  .facilityItem {
+    @include flex;
+    line-height: 1.8;
+    span {
+      display: block;
+    }
+    .facilityNumber {
+      font-weight: $fontSemiBold;
+      font-size: 1.6rem;
+      margin-right: 5px;
+    }
+  }
+}
+
+.accomodationParagraph {
+  p {
+    font-size: 1.4rem;
+    line-height: 1.7;
+    color: $darkGrey;
+  }
+}
