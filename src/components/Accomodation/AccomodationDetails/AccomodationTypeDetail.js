@@ -5,6 +5,10 @@ import Preloader from '../../../components/loader/PageLoader';
 import styles from './Styles.module.scss';
 import GlobalContainer from '../../../styles/GlobalContainer';
 import SingleAccomodationType from './SingleAccomodationType';
+import {
+  getSlicedAccomodations,
+  getPageNumbers
+} from '../Pagination/services/pagination';
 
 const AccomodationTypeDetail = ({
   accomodationTypes,
@@ -13,6 +17,9 @@ const AccomodationTypeDetail = ({
   getAccomodationTypesById
 }) => {
   const [propertyType, setPropertyType] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [accomodationPerPage, setAccomodationPerPage] = useState(6);
+
   useEffect(() => {
     if (accomodationTypes.length > 0) {
       const propertyTypeById = getAccomodationTypesById(propertiesTypeId);
@@ -39,6 +46,25 @@ const AccomodationTypeDetail = ({
     );
   };
 
+  const slicedAccomodations = getSlicedAccomodations(
+    currentPage,
+    accomodationPerPage,
+    accomodations
+  );
+  const numberPages = getPageNumbers(accomodations, accomodationPerPage);
+
+  const handlePaginationClick = event => {
+    setCurrentPage(Number(event.target.id));
+  };
+
+  const renderPageNumbers = numberPages.map(number => {
+    return (
+      <li key={number} id={number} onClick={handlePaginationClick}>
+        {number}
+      </li>
+    );
+  });
+
   return (
     <Preloader isLoading={isLoading}>
       <GlobalContainer>
@@ -52,10 +78,15 @@ const AccomodationTypeDetail = ({
           </div>
           <div className='row'>
             {!_isEmpty(accomodations) && accomodations.length > 0 ? (
-              accomodations.map(getAccomodationTypeList)
+              slicedAccomodations.map(getAccomodationTypeList)
             ) : (
               <p>Sorry no accomodation here</p>
             )}
+          </div>
+          <div className='row'>
+            <div className='col-xs-12'>
+              <ul id='page-numbers'>{renderPageNumbers}</ul>
+            </div>
           </div>
         </div>
       </GlobalContainer>
