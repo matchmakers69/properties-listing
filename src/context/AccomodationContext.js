@@ -49,7 +49,6 @@ export class AccomodationProvider extends Component {
   render() {
     const { accomodation } = this.state;
     const accomodationTypes = getAccomodationTypeByName(accomodation);
-
     return (
       <AccomodationContext.Provider
         value={{
