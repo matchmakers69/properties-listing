@@ -26,6 +26,7 @@ const SingleAccomodationDetails = props => {
       console.log(error);
     }
   }, [id]);
+
   useEffect(() => {
     displayAccomodationDetails();
   }, [displayAccomodationDetails]);
@@ -49,56 +50,59 @@ const SingleAccomodationDetails = props => {
 
   return (
     <Preloader data-test='pageLoader' isLoading={isLoading}>
-      <GlobalContainer>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-xs-12'>
-              <header className={styles.accomodationHeader}>
-                <h1 className={styles.accomodationTitle}>{name}</h1>
-                <span className={styles.accomodationType}>
-                  Property type: {accmodationType.name}
-                </span>
-              </header>
+      {!isLoading && (
+        <GlobalContainer>
+          <div className='container'>
+            <div className='row'>
+              <div className='col-xs-12'>
+                <header className={styles.accomodationHeader}>
+                  <h1 className={styles.accomodationTitle}>{name}</h1>
+                  <span className={styles.accomodationType}>
+                    Property type: {accmodationType.name}
+                  </span>
+                </header>
+              </div>
             </div>
-          </div>
-          <div className='row'>
-            <div className='col-xs-12 col-sm-6'>
-              <h3 className={styles.innerTitle}>Description:</h3>
-              <div
-                dangerouslySetInnerHTML={{ __html: description }}
-                className={styles.accomodationParagraph}
-              />
-            </div>
-            <div className='col-xs-12 col-sm-6'>
-              <div className='row'>
-                <div className='col-xs-12  col-md-6'>
-                  <h3 className={styles.innerTitle}>Facilities:</h3>
-                  <ul className={styles.innerList}>
-                    {!_isEmpty(facilities) ? (
-                      facilities.map((item, index) => {
-                        return (
-                          <li className={styles.facilityItem} key={item.id}>
-                            <span className={styles.facilityNumber}>{`${index +
-                              1}`}</span>
-                            <span>{item.label}</span>
-                          </li>
-                        );
-                      })
-                    ) : (
-                      <p>No facilities</p>
-                    )}
-                  </ul>
-                </div>
+            <div className='row'>
+              <div className='col-xs-12 col-sm-6'>
+                <h3 className={styles.innerTitle}>Description:</h3>
+                <div
+                  dangerouslySetInnerHTML={{ __html: description }}
+                  className={styles.accomodationParagraph}
+                />
+              </div>
+              <div className='col-xs-12 col-sm-6'>
+                <div className='row'>
+                  <div className='col-xs-12  col-md-6'>
+                    <h3 className={styles.innerTitle}>Facilities:</h3>
+                    <ul className={styles.innerList}>
+                      {!_isEmpty(facilities) ? (
+                        facilities.map((item, index) => {
+                          return (
+                            <li className={styles.facilityItem} key={item.id}>
+                              <span
+                                className={styles.facilityNumber}
+                              >{`${index + 1}`}</span>
+                              <span>{item.label}</span>
+                            </li>
+                          );
+                        })
+                      ) : (
+                        <p>No facilities</p>
+                      )}
+                    </ul>
+                  </div>
 
-                <div className='col-xs-12 col-md-6'>
-                  <h3 className={styles.innerTitle}>Rooms:</h3>
-                  <AccomodationRooms rooms={rooms} />
+                  <div className='col-xs-12 col-md-6'>
+                    <h3 className={styles.innerTitle}>Rooms:</h3>
+                    <AccomodationRooms rooms={rooms} />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </GlobalContainer>
+        </GlobalContainer>
+      )}
     </Preloader>
   );
 };
