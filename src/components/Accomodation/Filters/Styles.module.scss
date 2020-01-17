@@ -1,2 +1,10 @@
 @import '../../../styles/variables';
 @import '../../../styles/mixins.scss';
+
+.filterRowMarginBottom {
+  margin-bottom: 20px;
+  .labelParagraph {
+    font-size: 12px;
+    font-weight: $fontSemiBold;
+  }
+}

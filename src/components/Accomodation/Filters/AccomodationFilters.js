@@ -10,9 +10,9 @@ const AccomodationFilters = ({
     return sortOrder.replace(' ', '').toLowerCase();
   };
   return (
-    <div className='row row-margin'>
+    <div className={cx('row', `${styles.filterRowMarginBottom}`)}>
       <div className='col-xs-12 col-md-4'>
-        <h4>Filter by standard</h4>
+        <p className={styles.labelParagraph}>Filter by standard</p>
         <select
           id='sortorder'
           value={sortOrder}
@@ -20,7 +20,7 @@ const AccomodationFilters = ({
           onChange={handleFilteronChange}
         >
           <option disabled value=''>
-            Choose...
+            Select from highest to lowest standard
           </option>
           {sortOrders.map((order, i) => (
             <option key={i} value={getSortOrderValue(order)}>
