@@ -28,22 +28,24 @@ const AccomodationRooms = ({ rooms }) => {
 
   return (
     <Preloader isLoading={isLoading}>
-      <ul className={styles.typesList}>
-        {!_isEmpty(roomsAvailableById) ? (
-          roomsAvailableById.map(item => {
-            const { room, availability } = item;
-            return (
-              <AccomodationRoomsDetails
-                key={room.id}
-                room={room}
-                availability={availability}
-              />
-            );
-          })
-        ) : (
-          <p>No available room </p>
-        )}
-      </ul>
+      {!isLoading && (
+        <ul className={styles.typesList}>
+          {!_isEmpty(roomsAvailableById) ? (
+            roomsAvailableById.map(item => {
+              const { room, availability } = item;
+              return (
+                <AccomodationRoomsDetails
+                  key={room.id}
+                  room={room}
+                  availability={availability}
+                />
+              );
+            })
+          ) : (
+            <p>No available room </p>
+          )}
+        </ul>
+      )}
     </Preloader>
   );
 };
