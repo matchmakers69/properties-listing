@@ -19,10 +19,16 @@ const NavigationBar = () => {
   ]);
   return (
     <nav className={styles.navigationBar}>
-      <Link to='/'>Home</Link>
+      <Link className={styles.navLink} to='/'>
+        Home
+      </Link>
       {menuLinks.map(link => {
         return (
-          <Link to={`/accomodation-type/${link.id}`} key={link.id}>
+          <Link
+            className={styles.navLink}
+            to={`/accomodation-type/${link.id}`}
+            key={link.id}
+          >
             {link.label}
           </Link>
         );

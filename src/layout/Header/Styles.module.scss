@@ -14,4 +14,17 @@
   align-items: center;
   background-color: $navyGrey;
   border-bottom: 3px solid $yellowColor;
+  .navigationBar {
+    height: 100%;
+    @include flex;
+    align-items: center;
+    .navLink {
+      flex: 1 auto;
+      padding: 5px 8px;
+      display: block;
+      color: $whiteColor;
+      text-decoration: none;
+      font-size: 14px;
+    }
+  }
 }

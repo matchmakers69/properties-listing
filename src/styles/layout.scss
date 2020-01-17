@@ -5,7 +5,6 @@
   height: 100%;
   @include flex;
   @include flex-direction(column);
-  background-color: $bodyColor;
   padding-top: 40px;
 }
 .main {
