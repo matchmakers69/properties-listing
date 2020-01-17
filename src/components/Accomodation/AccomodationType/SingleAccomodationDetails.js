@@ -7,6 +7,7 @@ import _isEmpty from 'lodash/isEmpty';
 import _isNull from 'lodash/isNull';
 import _isUndefined from 'lodash/isUndefined';
 import AccomodationRooms from './AccomodationRooms';
+import AccomodationMap from '../../../components/Maps/AccomodationMap';
 
 const SingleAccomodationDetails = props => {
   const id = props.match.params.id;
@@ -63,6 +64,7 @@ const SingleAccomodationDetails = props => {
                 </header>
               </div>
             </div>
+            <AccomodationMap location={location} />
             <div className='row'>
               <div className='col-xs-12 col-sm-6'>
                 <h3 className={styles.innerTitle}>Description:</h3>
