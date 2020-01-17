@@ -7,13 +7,14 @@ const NavigationBar = ({ accomodationTypes, isLoading }) => {
     return <p>Navigation is loading...</p>;
   }
   return (
-    <nav className={styles.navigationBar}>
+    <nav data-test='navigationBar' className={styles.navigationBar}>
       <Link className={styles.navLink} to='/'>
         All properties
       </Link>
       {accomodationTypes.map(link => {
         return (
           <Link
+            data-test='navigationLinks'
             className={styles.navLink}
             to={`/accomodation-type/${link.id}`}
             key={link.id}
