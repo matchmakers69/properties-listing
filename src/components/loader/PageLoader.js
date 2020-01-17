@@ -11,7 +11,7 @@ const PageLoader = props => {
       <div
         className={cx(
           styles.preloaderContent,
-          `${isLoading ? styles.loaderVisible : styles.loaderNonVisible}`,
+          `${isLoading ? styles.loaderVisible : styles.loaderNonVisible}`
         )}
       >
         <div className={styles.preloaderInner}>
@@ -26,7 +26,7 @@ const PageLoader = props => {
 };
 
 PageLoader.propsTypes = {
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 export default PageLoader;

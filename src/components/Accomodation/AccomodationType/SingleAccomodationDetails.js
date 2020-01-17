@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { getAccomodationData } from '../services/accomodation';
-import Preloader from '../../loader/PageLoader';
+import Preloader from '../../Loader/PageLoader';
 import GlobalContainer from '../../../styles/GlobalContainer';
 import styles from './Styles.module.scss';
 import _isEmpty from 'lodash/isEmpty';

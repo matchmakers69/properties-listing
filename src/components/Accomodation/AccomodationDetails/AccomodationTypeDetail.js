@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
 
-import Preloader from '../../../components/loader/PageLoader';
+import Preloader from '../../Loader/PageLoader';
 import styles from './Styles.module.scss';
 import GlobalContainer from '../../../styles/GlobalContainer';
 import SingleAccomodationType from './SingleAccomodationType';
 import { getSlicedAccomodations } from '../Pagination/services/pagination';
+import { filterAccomodations } from '../Filters/services/accomodationFilters';
 
 import AccomodationsPagination from '../Pagination/AccomodationsPagination';
+import AccomodationFilters from '../Filters/AccomodationFilters';
 
 const AccomodationTypeDetail = ({
   accomodationTypes,
@@ -19,6 +21,28 @@ const AccomodationTypeDetail = ({
   const [propertyType, setPropertyType] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const [accomodationPerPage, setAccomodationPerPage] = useState(6);
+
+  // Initial state for filters
+  const initialState = {
+    sortOrder: '',
+    sortOrders: ['Highest Standard', 'Lowest Standard']
+  };
+
+  const filtersReducer = (state, newState) => {
+    return { ...state, ...newState };
+  };
+
+  const [filterValue, setFilterValue] = useReducer(
+    filtersReducer,
+    initialState
+  );
+
+  const handleFilteronChange = event => {
+    const { name, value } = event.target;
+    setFilterValue({
+      [name]: value
+    });
+  };
 
   useEffect(() => {
     if (accomodationTypes.length > 0) {
@@ -56,7 +80,10 @@ const AccomodationTypeDetail = ({
     setCurrentPage(paginationIndex);
   };
 
-  console.log(accomodations);
+  const accomodationsTypeList = filterAccomodations(
+    slicedAccomodations,
+    filterValue
+  );
 
   return (
     <Preloader isLoading={isLoading}>
@@ -69,6 +96,10 @@ const AccomodationTypeDetail = ({
               </header>
             </div>
           </div>
+          <AccomodationFilters
+            filterValue={filterValue}
+            handleFilteronChange={handleFilteronChange}
+          />
           <AccomodationsPagination
             currentPage={currentPage}
             handlePaginationClick={handlePaginationClick}
@@ -77,7 +108,7 @@ const AccomodationTypeDetail = ({
           />
           <div className='row'>
             {!_isEmpty(accomodations) && accomodations.length > 0 ? (
-              slicedAccomodations.map(getAccomodationTypeList)
+              accomodationsTypeList.map(getAccomodationTypeList)
             ) : (
               <p>Sorry no accomodation here</p>
             )}
@@ -91,7 +122,8 @@ const AccomodationTypeDetail = ({
 AccomodationTypeDetail.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   propertiesTypeId: PropTypes.string.isRequired,
-  accomodationTypes: PropTypes.instanceOf(Array).isRequired
+  accomodationTypes: PropTypes.instanceOf(Array).isRequired,
+  getAccomodationTypesById: PropTypes.func.isRequired
 };
 
 export default AccomodationTypeDetail;
