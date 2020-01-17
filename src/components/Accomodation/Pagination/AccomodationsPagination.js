@@ -23,15 +23,18 @@ const AccomodationsPagination = ({
         id={number}
         onClick={() => handlePaginationClick(index + 1)}
       >
-        {number}
+        <span className={styles.paginationNumbers}>{number}</span>
       </li>
     );
   });
 
   return (
     <div className='row'>
-      <div className='col-xs-12'>
-        <ul id='page-numbers'>{renderPageNumbers}</ul>
+      <div className={cx('col-xs-12', `${styles.topPaginationWrapper}`)}>
+        <span className={styles.numberOfPagesAlert}>Number of pages:</span>
+        <ul className={styles.accomodationPaginationList}>
+          {renderPageNumbers}
+        </ul>
       </div>
     </div>
   );
