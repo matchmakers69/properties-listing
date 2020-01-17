@@ -37,8 +37,11 @@ const AccomodationsPagination = ({
   );
 };
 
-// AccomodationsPagination.propTypes = {
-//   renderPageNumbers: PropTypes.instanceOf(Array).isRequired
-// };
+AccomodationsPagination.propTypes = {
+  accomodations: PropTypes.instanceOf(Array).isRequired,
+  accomodationPerPage: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  handlePaginationClick: PropTypes.func.isRequired
+};
 
 export default AccomodationsPagination;
