@@ -9,6 +9,7 @@ import {
   getSlicedAccomodations,
   getPageNumbers
 } from '../Pagination/services/pagination';
+import cx from 'classnames';
 
 const AccomodationTypeDetail = ({
   accomodationTypes,
@@ -53,13 +54,21 @@ const AccomodationTypeDetail = ({
   );
   const numberPages = getPageNumbers(accomodations, accomodationPerPage);
 
-  const handlePaginationClick = event => {
-    setCurrentPage(Number(event.target.id));
+  const handlePaginationClick = paginationIndex => {
+    setCurrentPage(paginationIndex);
   };
 
-  const renderPageNumbers = numberPages.map(number => {
+  const renderPageNumbers = numberPages.map((number, index) => {
     return (
-      <li key={number} id={number} onClick={handlePaginationClick}>
+      <li
+        className={cx(
+          styles.paginationItem,
+          `${index + 1 === currentPage ? styles.activePag : ''}`
+        )}
+        key={number}
+        id={number}
+        onClick={() => handlePaginationClick(index + 1)}
+      >
         {number}
       </li>
     );
