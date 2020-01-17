@@ -7,7 +7,7 @@ import styles from './Styles.module.scss';
 import AccomodationRoomsDetails from './AccomodationRoomsDetails';
 import Preloader from '../../loader/PageLoader';
 
-const AccomodationRooms = ({ rooms }) => {
+const AccomodationRooms = ({ rooms = [] }) => {
   const [availableRooms, setAvailableRooms] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const fetchAvailableRooms = useCallback(async () => {
@@ -18,12 +18,11 @@ const AccomodationRooms = ({ rooms }) => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [setAvailableRooms]);
 
   useEffect(() => {
     fetchAvailableRooms();
   }, [fetchAvailableRooms]);
-
   const roomsAvailableById = getRoomsByAvailability(rooms, availableRooms);
 
   return (

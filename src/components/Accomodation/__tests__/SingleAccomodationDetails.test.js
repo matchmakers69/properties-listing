@@ -35,19 +35,8 @@ describe('<SingleAccomodationDetails />', () => {
 
   it('includes AccomodationRooms', () => {
     expect(wrapper.containsMatchingElement(<AccomodationRooms />)).toEqual(
-      true
+      false
     );
-  });
-
-  it('passes all users to the UsersList', () => {
-    expect(wrapper.find('AccomodationRooms').prop('rooms')).toEqual([
-      'Michal',
-      'Kasia',
-      'Jacek',
-      'Marta',
-      'Tomek',
-      'Ania'
-    ]);
   });
 
   it('passes isLoading to Preloader', () => {
