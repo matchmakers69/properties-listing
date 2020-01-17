@@ -45,11 +45,6 @@ export class AccomodationProvider extends Component {
     return accomodationType;
   };
 
-  // getNestetAccomodations = id => {
-  //   const accomodationType = this.getAccomodationTypesById(id);
-  //   console.log(accomodationType.accomodations);
-  // }
-
   render() {
     const { accomodation } = this.state;
     const accomodationTypes = getAccomodationTypeByName(accomodation);
