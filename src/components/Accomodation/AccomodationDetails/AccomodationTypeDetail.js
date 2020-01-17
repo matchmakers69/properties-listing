@@ -17,7 +17,7 @@ const AccomodationTypeDetail = ({
   accomodationTypes,
   propertiesTypeId,
   isLoading,
-  getAccomodationTypesById
+  getAccomodationTypeById
 }) => {
   const [propertyType, setPropertyType] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -50,10 +50,10 @@ const AccomodationTypeDetail = ({
 
   useEffect(() => {
     if (accomodationTypes.length > 0) {
-      const propertyTypeById = getAccomodationTypesById(propertiesTypeId);
+      const propertyTypeById = getAccomodationTypeById(propertiesTypeId);
       setPropertyType(propertyTypeById);
     }
-  }, [accomodationTypes.length, getAccomodationTypesById, propertiesTypeId]);
+  }, [accomodationTypes.length, getAccomodationTypeById, propertiesTypeId]);
 
   const { type, accomodations = [] } = propertyType;
 
@@ -100,43 +100,45 @@ const AccomodationTypeDetail = ({
 
   return (
     <Preloader isLoading={isLoading}>
-      <GlobalContainer>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-xs-12'>
-              <header className={styles.propertyTypeHeader}>
-                <h1 className='h1'>{`${type}s`}</h1>
-              </header>
+      {!isLoading && (
+        <GlobalContainer>
+          <div className='container'>
+            <div className='row'>
+              <div className='col-xs-12'>
+                <header className={styles.propertyTypeHeader}>
+                  <h1 className='h1'>{`${type}s`}</h1>
+                </header>
+              </div>
+            </div>
+            <AccomodationFilters
+              filterValue={filterValue}
+              handleFilteronChange={handleFilteronChange}
+              handleResetFilters={handleResetFilters}
+              label='Reset filters'
+            />
+            <AccomodationsPagination
+              currentPage={currentPage}
+              handlePaginationClick={handlePaginationClick}
+              accomodationPerPage={accomodationPerPage}
+              accomodations={accomodations}
+            />
+            <div className='row'>
+              {!_isEmpty(accomodationsTypeList) &&
+              accomodationsTypeList.length > 0 ? (
+                accomodationsTypeList.map(renderAccomodationList)
+              ) : (
+                <div className={styles.noAccomodationAlert}>
+                  <p>Sorry..., We could not find anything</p>
+                  <ButtonAccomodation
+                    handleResetFilters={handleResetFilters}
+                    label='Reset filters'
+                  />
+                </div>
+              )}
             </div>
           </div>
-          <AccomodationFilters
-            filterValue={filterValue}
-            handleFilteronChange={handleFilteronChange}
-            handleResetFilters={handleResetFilters}
-            label='Reset filters'
-          />
-          <AccomodationsPagination
-            currentPage={currentPage}
-            handlePaginationClick={handlePaginationClick}
-            accomodationPerPage={accomodationPerPage}
-            accomodations={accomodations}
-          />
-          <div className='row'>
-            {!_isEmpty(accomodationsTypeList) &&
-            accomodationsTypeList.length > 0 ? (
-              accomodationsTypeList.map(renderAccomodationList)
-            ) : (
-              <div className={styles.noAccomodationAlert}>
-                <p>Sorry..., We could not find anything</p>
-                <ButtonAccomodation
-                  handleResetFilters={handleResetFilters}
-                  label='Reset filters'
-                />
-              </div>
-            )}
-          </div>
-        </div>
-      </GlobalContainer>
+        </GlobalContainer>
+      )}
     </Preloader>
   );
 };
@@ -145,7 +147,7 @@ AccomodationTypeDetail.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   propertiesTypeId: PropTypes.string.isRequired,
   accomodationTypes: PropTypes.instanceOf(Array).isRequired,
-  getAccomodationTypesById: PropTypes.func.isRequired
+  getAccomodationTypeById: PropTypes.func.isRequired
 };
 
 export default AccomodationTypeDetail;

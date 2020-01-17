@@ -36,13 +36,14 @@ export class AccomodationProvider extends Component {
     this._isMounted = false;
   };
 
-  getAccomodationTypesById = id => {
+  getAccomodationTypeById = id => {
     const { accomodation } = this.state;
     const accomodationTypes = getAccomodationTypeByName(accomodation);
     let accomodationType = null;
     accomodationType = accomodationTypes.find(
       item => item.id === parseInt(id, 10)
     );
+    console.log(accomodationType);
     return accomodationType;
   };
 
@@ -54,7 +55,7 @@ export class AccomodationProvider extends Component {
         value={{
           ...this.state,
           accomodationTypes: accomodationTypes,
-          getAccomodationTypesById: this.getAccomodationTypesById
+          getAccomodationTypeById: this.getAccomodationTypeById
         }}
       >
         {this.props.children}

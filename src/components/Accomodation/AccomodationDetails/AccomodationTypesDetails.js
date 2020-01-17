@@ -7,13 +7,13 @@ const AccomodationTypesDetails = props => {
 
   return (
     <AccomodationContext.Consumer>
-      {({ accomodationTypes, isLoading, getAccomodationTypesById }) => (
+      {({ accomodationTypes, isLoading, getAccomodationTypeById }) => (
         <>
           <AccomodationTypeDetail
             accomodationTypes={accomodationTypes}
             propertiesTypeId={id}
             isLoading={isLoading}
-            getAccomodationTypesById={getAccomodationTypesById}
+            getAccomodationTypeById={getAccomodationTypeById}
           />
         </>
       )}
