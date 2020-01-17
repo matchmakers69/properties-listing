@@ -29,7 +29,7 @@ const AccomodationFilters = ({
           name='addressCode'
           value={addressCode.trim()}
           maxLength='6'
-          placeholder='Search via postcode eg. 25'
+          placeholder='Search via postcode eg. 27'
           onChange={handleFilteronChange}
         />
       </div>
