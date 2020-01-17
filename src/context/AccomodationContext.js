@@ -8,7 +8,8 @@ export class AccomodationProvider extends Component {
   _isMounted = false;
   state = {
     accomodation: [],
-    isLoading: true
+    isLoading: true,
+    accomodationTypeId: null
   };
 
   fetchAccomodation = async () => {
