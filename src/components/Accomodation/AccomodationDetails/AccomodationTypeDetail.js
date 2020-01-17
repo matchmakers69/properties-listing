@@ -11,6 +11,7 @@ import { filterAccomodations } from '../Filters/services/accomodationFilters';
 
 import AccomodationsPagination from '../Pagination/AccomodationsPagination';
 import AccomodationFilters from '../Filters/AccomodationFilters';
+import ButtonAccomodation from '../../../components/Buttons/ButtonAccomodation';
 
 const AccomodationTypeDetail = ({
   accomodationTypes,
@@ -24,6 +25,8 @@ const AccomodationTypeDetail = ({
 
   // Initial state for filters
   const initialState = {
+    ratingStar: '',
+    stars: [1, 2, 3, 4],
     sortOrder: '',
     sortOrders: ['Highest Standard', 'Lowest Standard']
   };
@@ -53,7 +56,7 @@ const AccomodationTypeDetail = ({
 
   const { type, accomodations = [] } = propertyType;
 
-  const getAccomodationTypeList = accomodation => {
+  const renderAccomodationList = accomodation => {
     const {
       rating: { label }
     } = accomodation;
@@ -85,6 +88,15 @@ const AccomodationTypeDetail = ({
     filterValue
   );
 
+  const handleResetFilters = () => {
+    setFilterValue({
+      ratingStar: '',
+      stars: [1, 2, 3, 4],
+      sortOrder: '',
+      sortOrders: ['Highest Standard', 'Lowest Standard']
+    });
+  };
+
   return (
     <Preloader isLoading={isLoading}>
       <GlobalContainer>
@@ -107,10 +119,15 @@ const AccomodationTypeDetail = ({
             accomodations={accomodations}
           />
           <div className='row'>
-            {!_isEmpty(accomodations) && accomodations.length > 0 ? (
-              accomodationsTypeList.map(getAccomodationTypeList)
+            {!_isEmpty(accomodationsTypeList) &&
+            accomodationsTypeList.length > 0 ? (
+              accomodationsTypeList.map(renderAccomodationList)
             ) : (
-              <p>Sorry no accomodation here</p>
+              <div className={styles.noAccomodationAlert}>
+                <p>Sorry..., We could not find anything</p>
+                <ButtonAccomodation label='Reset filters' />
+                {/* <button onClick={handleResetFilters}>Reset filters</button> */}
+              </div>
             )}
           </div>
         </div>

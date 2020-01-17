@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './Styles.module.scss';
 import cx from 'classnames';
+import PropTypes from 'prop-types';
 
 const AccomodationFilters = ({
-  filterValue: { sortOrder, sortOrders },
+  filterValue: { ratingStar, stars, sortOrder, sortOrders },
   handleFilteronChange
 }) => {
   const getSortOrderValue = sortOrder => {
@@ -14,7 +15,6 @@ const AccomodationFilters = ({
       <div className='col-xs-12 col-md-4'>
         <p className={styles.labelParagraph}>Filter by standard</p>
         <select
-          id='sortorder'
           value={sortOrder}
           name='sortOrder'
           onChange={handleFilteronChange}
@@ -29,8 +29,27 @@ const AccomodationFilters = ({
           ))}
         </select>
       </div>
+      <div className='col-xs-12 col-md-4'>
+        <p className={styles.labelParagraph}>Filter by raritg start</p>
+        <select
+          value={ratingStar}
+          name='ratingStar'
+          onChange={handleFilteronChange}
+        >
+          <option disabled value=''>
+            Filter by stars
+          </option>
+          {stars.map((order, index) => (
+            <option value={index + 1} key={index}>{`${order} stars`}</option>
+          ))}
+        </select>
+      </div>
     </div>
   );
+};
+
+AccomodationFilters.propTypes = {
+  filterValue: PropTypes.instanceOf(Object).isRequired
 };
 
 export default AccomodationFilters;

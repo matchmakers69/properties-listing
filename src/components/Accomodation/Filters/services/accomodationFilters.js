@@ -1,6 +1,6 @@
-export const filterAccomodations = (accomodations, filterValue) => {
-  let filteredAccomodations = accomodations;
-  const { sortOrder } = filterValue;
+export const filterAccomodations = (slicedAccomodations, filterValue) => {
+  let filteredAccomodations = slicedAccomodations;
+  const { sortOrder, ratingStar } = filterValue;
 
   if (sortOrder) {
     if (sortOrder === 'higheststandard') {
@@ -19,6 +19,14 @@ export const filterAccomodations = (accomodations, filterValue) => {
           b.rating.label.replace(/[^0-9.-]+/g, '')
       );
     }
+  }
+
+  if (ratingStar) {
+    const starRateAsNumber = ratingStar.replace(/[^0-9.-]+/g, '');
+
+    filteredAccomodations = filteredAccomodations.filter(star => {
+      return star.rating.label.replace(/[^0-9.-]+/g, '') === starRateAsNumber;
+    });
   }
 
   return filteredAccomodations;
