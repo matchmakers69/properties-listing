@@ -125,8 +125,10 @@ const AccomodationTypeDetail = ({
             ) : (
               <div className={styles.noAccomodationAlert}>
                 <p>Sorry..., We could not find anything</p>
-                <ButtonAccomodation label='Reset filters' />
-                {/* <button onClick={handleResetFilters}>Reset filters</button> */}
+                <ButtonAccomodation
+                  handleResetFilters={handleResetFilters}
+                  label='Reset filters'
+                />
               </div>
             )}
           </div>
