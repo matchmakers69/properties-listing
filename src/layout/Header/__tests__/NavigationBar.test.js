@@ -28,7 +28,5 @@ describe('Navigation items', () => {
   it('renders component without crash', () => {
     const component = findByTestAttr(wrapper, 'navigationBar');
     expect(component.length).toBe(1);
-
-    // expect(wrapper.find(NavigationItem)).toHaveLength(4)
   });
 });
