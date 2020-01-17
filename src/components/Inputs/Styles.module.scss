@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+label {
+  display: block;
+  font-size: 14px;
+}
+
+.inputsSpacer {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+input[type='text'],
+input[type='username'],
+input[type='number'],
+input[type='url'],
+input[type='email'],
+input[type='password'] {
+  padding: 1rem;
+  border: 1px solid #f1f1f1;
+  font-size: 1.4rem;
+  height: 40px;
+  width: 100%;
+}

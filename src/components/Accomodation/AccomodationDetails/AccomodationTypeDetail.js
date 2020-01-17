@@ -28,7 +28,8 @@ const AccomodationTypeDetail = ({
     ratingStar: '',
     stars: [1, 2, 3, 4],
     sortOrder: '',
-    sortOrders: ['Highest Standard', 'Lowest Standard']
+    sortOrders: ['Highest Standard', 'Lowest Standard'],
+    addressCode: ''
   };
 
   const filtersReducer = (state, newState) => {
@@ -111,6 +112,8 @@ const AccomodationTypeDetail = ({
           <AccomodationFilters
             filterValue={filterValue}
             handleFilteronChange={handleFilteronChange}
+            handleResetFilters={handleResetFilters}
+            label='Reset filters'
           />
           <AccomodationsPagination
             currentPage={currentPage}

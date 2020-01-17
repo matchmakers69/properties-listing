@@ -1,6 +1,6 @@
 export const filterAccomodations = (slicedAccomodations, filterValue) => {
   let filteredAccomodations = slicedAccomodations;
-  const { sortOrder, ratingStar } = filterValue;
+  const { sortOrder, ratingStar, addressCode } = filterValue;
 
   if (sortOrder) {
     if (sortOrder === 'higheststandard') {
@@ -26,6 +26,17 @@ export const filterAccomodations = (slicedAccomodations, filterValue) => {
 
     filteredAccomodations = filteredAccomodations.filter(star => {
       return star.rating.label.replace(/[^0-9.-]+/g, '') === starRateAsNumber;
+    });
+  }
+
+  if (addressCode) {
+    // const postCodetonumber = addressCode.replace(/^[0-9]+$/);
+    filteredAccomodations = filteredAccomodations.filter(accomodation => {
+      const { postcode } = accomodation;
+      if (postcode !== '') {
+        return postcode.toLowerCase().indexOf(addressCode.toLowerCase()) !== -1;
+      }
+      return true;
     });
   }
 
