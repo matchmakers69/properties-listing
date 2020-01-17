@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
+
 import Preloader from '../../../components/loader/PageLoader';
 import styles from './Styles.module.scss';
 import GlobalContainer from '../../../styles/GlobalContainer';
 import SingleAccomodationType from './SingleAccomodationType';
-import {
-  getSlicedAccomodations,
-  getPageNumbers
-} from '../Pagination/services/pagination';
-import cx from 'classnames';
+import { getSlicedAccomodations } from '../Pagination/services/pagination';
+
+import AccomodationsPagination from '../Pagination/AccomodationsPagination';
 
 const AccomodationTypeDetail = ({
   accomodationTypes,
@@ -28,7 +27,7 @@ const AccomodationTypeDetail = ({
     }
   }, [accomodationTypes.length, getAccomodationTypesById, propertiesTypeId]);
 
-  const { type, accomodations } = propertyType;
+  const { type, accomodations = [] } = propertyType;
 
   const getAccomodationTypeList = accomodation => {
     const {
@@ -52,27 +51,12 @@ const AccomodationTypeDetail = ({
     accomodationPerPage,
     accomodations
   );
-  const numberPages = getPageNumbers(accomodations, accomodationPerPage);
 
   const handlePaginationClick = paginationIndex => {
     setCurrentPage(paginationIndex);
   };
 
-  const renderPageNumbers = numberPages.map((number, index) => {
-    return (
-      <li
-        className={cx(
-          styles.paginationItem,
-          `${index + 1 === currentPage ? styles.activePag : ''}`
-        )}
-        key={number}
-        id={number}
-        onClick={() => handlePaginationClick(index + 1)}
-      >
-        {number}
-      </li>
-    );
-  });
+  console.log(accomodations);
 
   return (
     <Preloader isLoading={isLoading}>
@@ -85,17 +69,18 @@ const AccomodationTypeDetail = ({
               </header>
             </div>
           </div>
+          <AccomodationsPagination
+            currentPage={currentPage}
+            handlePaginationClick={handlePaginationClick}
+            accomodationPerPage={accomodationPerPage}
+            accomodations={accomodations}
+          />
           <div className='row'>
             {!_isEmpty(accomodations) && accomodations.length > 0 ? (
               slicedAccomodations.map(getAccomodationTypeList)
             ) : (
               <p>Sorry no accomodation here</p>
             )}
-          </div>
-          <div className='row'>
-            <div className='col-xs-12'>
-              <ul id='page-numbers'>{renderPageNumbers}</ul>
-            </div>
           </div>
         </div>
       </GlobalContainer>
