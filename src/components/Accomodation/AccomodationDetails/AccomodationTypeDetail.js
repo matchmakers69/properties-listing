@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
-
+import queryString from 'query-string';
 import styles from './Styles.module.scss';
 import GlobalContainer from '../../../styles/GlobalContainer';
 import SingleAccomodationType from './SingleAccomodationType';
@@ -11,6 +11,7 @@ import { filterAccomodations } from '../Filters/services/accomodationFilters';
 import AccomodationsPagination from '../Pagination/AccomodationsPagination';
 import AccomodationFilters from '../Filters/AccomodationFilters';
 import { useHistory } from 'react-router-dom';
+import { getPageNumbers } from '../Pagination/services/pagination';
 
 const ACCOMODATION_PER_PAGE = 6;
 
@@ -82,8 +83,31 @@ const AccomodationTypeDetail = ({
     accomodations
   );
 
+  const setPageQueryParams = page => {
+    history.push({ search: `?page=${page}` });
+  };
+
+  useEffect(() => {
+    const pageFromParams = queryString.parse(window.location.search).page;
+    const page = pageFromParams ? parseInt(pageFromParams, 10) : 1;
+
+    const totalPagesArray = getPageNumbers(
+      accomodations,
+      ACCOMODATION_PER_PAGE
+    );
+    const totalPagesLength = totalPagesArray.length;
+    if (totalPagesArray.length) {
+      if (page > totalPagesLength) {
+        history.push('/404');
+      }
+    }
+
+    setCurrentPage(page);
+  }, [accomodations, history]);
+
   const handlePaginationClick = paginationIndex => {
     setCurrentPage(paginationIndex);
+    setPageQueryParams(paginationIndex);
   };
 
   const accomodationsTypeList = filterAccomodations(
