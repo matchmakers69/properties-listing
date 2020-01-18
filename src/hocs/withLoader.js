@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AccomodationContext } from '../context/AccomodationContext';
-import PageLoader from '../components/Loader/PageLoader';
+import PageLoader from '../components/Preloader/PageLoader';
 
 const withLoader = Component => props => {
   const { isLoading } = useContext(AccomodationContext);

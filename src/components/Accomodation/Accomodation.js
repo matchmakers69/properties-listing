@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Styles.module.scss';
-import PageLoader from '../Loader/PageLoader';
+import PageLoader from '../Preloader/PageLoader';
 import { AccomodationContext } from '../../context/AccomodationContext';
 import AccomodationTypes from './AccomodationTypes/AccomodationTypes';
 

@@ -5,7 +5,7 @@ import { getRoomsByAvailability } from '../services/getRoomsByAvailability';
 import _isEmpty from 'lodash/isEmpty';
 import styles from './Styles.module.scss';
 import AccomodationRoomsDetails from './AccomodationRoomsDetails';
-import Preloader from '../../Loader/PageLoader';
+import Preloader from '../../Preloader/PageLoader';
 
 const AccomodationRooms = ({ rooms = [] }) => {
   const [availableRooms, setAvailableRooms] = useState([]);
