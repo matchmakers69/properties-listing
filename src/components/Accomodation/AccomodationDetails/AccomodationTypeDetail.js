@@ -2,7 +2,6 @@ import React, { useState, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
 
-import Preloader from '../../Loader/PageLoader';
 import styles from './Styles.module.scss';
 import GlobalContainer from '../../../styles/GlobalContainer';
 import SingleAccomodationType from './SingleAccomodationType';
@@ -11,16 +10,18 @@ import { filterAccomodations } from '../Filters/services/accomodationFilters';
 
 import AccomodationsPagination from '../Pagination/AccomodationsPagination';
 import AccomodationFilters from '../Filters/AccomodationFilters';
+import { useHistory } from 'react-router-dom';
+
+const ACCOMODATION_PER_PAGE = 6;
 
 const AccomodationTypeDetail = ({
-  accomodationTypes,
   propertiesTypeId,
-  isLoading,
   getAccomodationTypeById
 }) => {
   const [propertyType, setPropertyType] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [accomodationPerPage, setAccomodationPerPage] = useState(6);
+
+  const history = useHistory();
 
   // Initial state for filters
   const initialState = {
@@ -48,11 +49,13 @@ const AccomodationTypeDetail = ({
   };
 
   useEffect(() => {
-    if (accomodationTypes.length > 0) {
-      const propertyTypeById = getAccomodationTypeById(propertiesTypeId);
+    const propertyTypeById = getAccomodationTypeById(propertiesTypeId);
+    if (propertyTypeById) {
       setPropertyType(propertyTypeById);
+    } else {
+      history.push('/404');
     }
-  }, [accomodationTypes.length, getAccomodationTypeById, propertiesTypeId]);
+  }, [getAccomodationTypeById, history, propertiesTypeId]);
 
   const { type, accomodations = [] } = propertyType;
 
@@ -75,7 +78,7 @@ const AccomodationTypeDetail = ({
 
   const slicedAccomodations = getSlicedAccomodations(
     currentPage,
-    accomodationPerPage,
+    ACCOMODATION_PER_PAGE,
     accomodations
   );
 
@@ -98,50 +101,44 @@ const AccomodationTypeDetail = ({
   };
 
   return (
-    <Preloader isLoading={isLoading}>
-      {!isLoading && (
-        <GlobalContainer>
-          <div className='container'>
-            <div className='row'>
-              <div className='col-xs-12'>
-                <header className={styles.propertyTypeHeader}>
-                  <h1 className='h1'>{`${type}s`}</h1>
-                </header>
-              </div>
-            </div>
-            <AccomodationFilters
-              filterValue={filterValue}
-              handleFilteronChange={handleFilteronChange}
-              handleResetFilters={handleResetFilters}
-              label='Reset filters'
-            />
-            <AccomodationsPagination
-              currentPage={currentPage}
-              handlePaginationClick={handlePaginationClick}
-              accomodationPerPage={accomodationPerPage}
-              accomodations={accomodations}
-            />
-            <div className='row'>
-              {!_isEmpty(accomodationsTypeList) &&
-              accomodationsTypeList.length > 0 ? (
-                accomodationsTypeList.map(renderAccomodationList)
-              ) : (
-                <div className={styles.noAccomodationAlert}>
-                  <p>Sorry..., We could not find anything</p>
-                </div>
-              )}
-            </div>
+    <GlobalContainer>
+      <div className='container'>
+        <div className='row'>
+          <div className='col-xs-12'>
+            <header className={styles.propertyTypeHeader}>
+              <h1 className='h1'>{`${type}s`}</h1>
+            </header>
           </div>
-        </GlobalContainer>
-      )}
-    </Preloader>
+        </div>
+        <AccomodationFilters
+          filterValue={filterValue}
+          handleFilteronChange={handleFilteronChange}
+          handleResetFilters={handleResetFilters}
+          label='Reset filters'
+        />
+        <AccomodationsPagination
+          currentPage={currentPage}
+          handlePaginationClick={handlePaginationClick}
+          accomodationPerPage={ACCOMODATION_PER_PAGE}
+          accomodations={accomodations}
+        />
+        <div className='row'>
+          {!_isEmpty(accomodationsTypeList) &&
+          accomodationsTypeList.length > 0 ? (
+            accomodationsTypeList.map(renderAccomodationList)
+          ) : (
+            <div className={styles.noAccomodationAlert}>
+              <p>Sorry..., We could not find anything</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </GlobalContainer>
   );
 };
 
 AccomodationTypeDetail.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
   propertiesTypeId: PropTypes.string.isRequired,
-  accomodationTypes: PropTypes.instanceOf(Array).isRequired,
   getAccomodationTypeById: PropTypes.func.isRequired
 };
 
