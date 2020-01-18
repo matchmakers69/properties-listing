@@ -1,5 +1,5 @@
 import React from 'react';
-import { configure, mount } from 'enzyme';
+import { configure, mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Input from '../Input';
 import { findByTestAttr } from '../../../../tests/testUtils';
@@ -17,6 +17,14 @@ const props = {
 
 const setup = () => {
   return mount(<Input {...props} />);
+};
+
+const updateInput = (wrapper, selector, newValue, newName) => {
+  const input = wrapper.find(selector);
+  input.simulate('change', {
+    target: { name: newName, value: newValue }
+  });
+  return wrapper.find(selector);
 };
 
 describe('<Input />', () => {
@@ -43,10 +51,16 @@ describe('<Input />', () => {
     );
   });
 
-  it('calls onChange handler with a new value', () => {
-    const mockEvent = { target: { value: '234' } };
-    Input.find('[data-test="accomodationInput"]').simulate('change', mockEvent);
+  it('allows user to fill form', () => {
+    const accomodationPostCode = updateInput(
+      Input,
+      '[data-test="accomodationInput"]',
+      '222',
+      '198'
+    );
     expect(props.onChange).toBeCalledTimes(1);
-    // expect(props.onChange).toHaveBeenCalledWith();
+    Input.find('[data-test="accomodationInput"]').simulate('change');
+
+    expect(accomodationPostCode.props().value).toBe('198');
   });
 });
