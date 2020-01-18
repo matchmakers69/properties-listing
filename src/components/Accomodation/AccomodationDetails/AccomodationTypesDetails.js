@@ -1,6 +1,7 @@
 import React from 'react';
 import { AccomodationContext } from '../../../context/AccomodationContext';
 import AccomodationTypeDetail from './AccomodationTypeDetail';
+import withLoader from '../../../hocs/withLoader';
 
 const AccomodationTypesDetails = props => {
   const id = props.match.params.id;
@@ -12,7 +13,6 @@ const AccomodationTypesDetails = props => {
           <AccomodationTypeDetail
             accomodationTypes={accomodationTypes}
             propertiesTypeId={id}
-            isLoading={isLoading}
             getAccomodationTypeById={getAccomodationTypeById}
           />
         </>
@@ -21,4 +21,4 @@ const AccomodationTypesDetails = props => {
   );
 };
 
-export default AccomodationTypesDetails;
+export default withLoader(AccomodationTypesDetails);
