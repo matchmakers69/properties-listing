@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Adapter from 'enzyme-adapter-react-16';
 import { findByTestAttr } from '../../../../tests/testUtils';
 import NavigationBar from '../NavigationBar';
+import { Link } from 'react-router-dom';
 
 configure({ adapter: new Adapter() });
 
@@ -28,5 +29,9 @@ describe('Navigation items', () => {
   it('renders component without crash', () => {
     const component = findByTestAttr(wrapper, 'navigationBar');
     expect(component.length).toBe(1);
+  });
+
+  it('should contain a home link', () => {
+    expect(wrapper.find(Link).filter({ to: '/' })).toHaveLength(1);
   });
 });
