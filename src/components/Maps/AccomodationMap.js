@@ -15,10 +15,8 @@ const AccomodationMap = ({ location: { location_long, location_lat } }) => {
   const [map, setMap] = useState(null);
   const mapContainer = useRef(null);
 
-  const [viewport, setViewPort] = useState({
-    latitude: location_lat,
-    longitude: location_long
-  });
+  const LATITUDE = location_lat;
+  const LONGITUDE = location_long;
 
   const createMarker = useCallback(
     propertyMap => {
@@ -51,7 +49,7 @@ const AccomodationMap = ({ location: { location_long, location_lat } }) => {
       const propertyMap = new mapboxgl.Map({
         container: mapContainer.current,
         style: 'mapbox://styles/mapbox/streets-v11',
-        center: [viewport.latitude, viewport.longitude],
+        center: [LATITUDE, LONGITUDE],
         zoom: 4
       });
 
@@ -63,7 +61,7 @@ const AccomodationMap = ({ location: { location_long, location_lat } }) => {
     };
 
     if (!map) initializeMap({ setMap, mapContainer });
-  }, [createMarker, map, viewport.latitude, viewport.longitude]);
+  }, [createMarker, map, LATITUDE, LONGITUDE]);
 
   useEffect(() => {
     renderMap();
@@ -74,7 +72,6 @@ const AccomodationMap = ({ location: { location_long, location_lat } }) => {
       <div className='col-xs-12'>
         <div>
           <div
-            {...viewport}
             ref={el => {
               mapContainer.current = el;
             }}
