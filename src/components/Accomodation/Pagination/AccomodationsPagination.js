@@ -11,10 +11,10 @@ const AccomodationsPagination = ({
   handlePaginationClick
 }) => {
   const numberPages = getPageNumbers(accomodations, accomodationPerPage);
-
   const renderPageNumbers = numberPages.map((number, index) => {
     return (
       <li
+        role='button'
         className={cx(
           styles.paginationItem,
           `${index + 1 === currentPage ? styles.activePag : ''}`
