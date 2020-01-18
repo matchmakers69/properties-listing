@@ -11,7 +11,6 @@ import { filterAccomodations } from '../Filters/services/accomodationFilters';
 
 import AccomodationsPagination from '../Pagination/AccomodationsPagination';
 import AccomodationFilters from '../Filters/AccomodationFilters';
-import ButtonAccomodation from '../../../components/Buttons/ButtonAccomodation';
 
 const AccomodationTypeDetail = ({
   accomodationTypes,
@@ -129,10 +128,6 @@ const AccomodationTypeDetail = ({
               ) : (
                 <div className={styles.noAccomodationAlert}>
                   <p>Sorry..., We could not find anything</p>
-                  <ButtonAccomodation
-                    handleResetFilters={handleResetFilters}
-                    label='Reset filters'
-                  />
                 </div>
               )}
             </div>
