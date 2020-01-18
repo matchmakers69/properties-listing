@@ -1,5 +1,5 @@
 import React from 'react';
-import { configure, mount, shallow } from 'enzyme';
+import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Input from '../Input';
 import { findByTestAttr } from '../../../../tests/testUtils';
@@ -47,6 +47,6 @@ describe('<Input />', () => {
     const mockEvent = { target: { value: '234' } };
     Input.find('[data-test="accomodationInput"]').simulate('change', mockEvent);
     expect(props.onChange).toBeCalledTimes(1);
-    //w  expect(props.onChange).toHaveBeenCalledWith('234');
+    // expect(props.onChange).toHaveBeenCalledWith();
   });
 });

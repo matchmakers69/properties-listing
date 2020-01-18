@@ -1,9 +1,12 @@
 import React from 'react';
-import Enzyme, { shallow, mount } from 'enzyme';
+import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import SingleAccomodationDetails from '../AccomodationType/SingleAccomodationDetails';
 import AccomodationRooms from '../AccomodationType/AccomodationRooms';
 import { findByTestAttr } from '../../../../tests/testUtils';
+import { BrowserRouter } from 'react-router-dom';
+
+jest.mock('mapbox-gl/dist/mapbox-gl', () => ({ Map: () => ({}) }));
 
 Enzyme.configure({
   adapter: new Adapter()
@@ -12,7 +15,11 @@ Enzyme.configure({
 const match = { params: { id: 'accomodation' } };
 
 const setup = () => {
-  return shallow(<SingleAccomodationDetails match={match} />);
+  return mount(
+    <BrowserRouter>
+      <SingleAccomodationDetails match={match} />
+    </BrowserRouter>
+  );
 };
 
 describe('<SingleAccomodationDetails />', () => {
@@ -20,6 +27,7 @@ describe('<SingleAccomodationDetails />', () => {
 
   beforeEach(() => {
     wrapper = setup();
+    wrapper.render();
   });
 
   it('includes Preloader', () => {
@@ -34,9 +42,9 @@ describe('<SingleAccomodationDetails />', () => {
   });
 
   it('includes AccomodationRooms', () => {
-    expect(wrapper.containsMatchingElement(<AccomodationRooms />)).toEqual(
-      false
-    );
+    expect(
+      wrapper.containsMatchingElement(<AccomodationRooms rooms={[]} />)
+    ).toEqual(false);
   });
 
   it('passes isLoading to Preloader', () => {
