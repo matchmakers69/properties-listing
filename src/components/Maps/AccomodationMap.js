@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import PropTypes from 'prop-types';
+import { localization } from '../../utils/localization';
 
 const stylesMap = {
   width: '100%',
@@ -19,55 +20,59 @@ const AccomodationMap = ({ location: { location_long, location_lat } }) => {
     longitude: location_long
   });
 
-  //   function addMarkers(mapNew) {
-  //     localization.features.forEach(marker => {
-  //       const markerEl = document.createElement('div');
-  //       markerEl.classList.add('pinContainer');
-  //       markerEl.innerHTML = '📌';
-  //       markerEl.style.cursor = 'pointer';
-  //       const popUpEl = document.createElement('div');
-  //       popUpEl.classList.add('popUpMap');
-  //       new mapboxgl.Popup(popUpEl, { offset: [12, -10] })
-  //         .setLngLat(marker.geometry.coordinates)
-  //         .setHTML(marker.properties.ADDRESS)
-  //         .addTo(mapNew);
-  //       new mapboxgl.Marker(markerEl, { offset: [12, -10] })
-  //         .setLngLat(marker.geometry.coordinates)
-  //         .addTo(mapNew);
-  //       markerEl.addEventListener('click', () => {
-  //         mapNew.flyTo({
-  //           center: marker.geometry.coordinates,
-  //           zoom: 10,
-  //         });
-  //       });
-  //     });
-  //   }
+  const createMarker = useCallback(
+    propertyMap => {
+      const localizationMap = localization(location_lat, location_long);
+      localizationMap.features.forEach(marker => {
+        const markerEl = document.createElement('div');
+        markerEl.classList.add('pinContainer');
+        markerEl.innerHTML = '📌';
+        markerEl.style.cursor = 'pointer';
 
-  useEffect(() => {
+        new mapboxgl.Marker(markerEl, { offset: [12, -10] })
+          .setLngLat(marker.geometry.coordinates)
+          .addTo(propertyMap);
+
+        markerEl.addEventListener('click', () => {
+          propertyMap.flyTo({
+            center: marker.geometry.coordinates,
+            zoom: 10
+          });
+        });
+      });
+    },
+    [location_lat, location_long]
+  );
+
+  const renderMap = useCallback(() => {
     mapboxgl.accessToken =
       'pk.eyJ1IjoibWF0Y2htYWtlcnM2OSIsImEiOiJjazVpcnRmMncwMmZ1M2xwYm90enc2MHdrIn0._FxdMZ0oLJTugHypl_JQ7Q';
     const initializeMap = () => {
-      const mapNew = new mapboxgl.Map({
+      const propertyMap = new mapboxgl.Map({
         container: mapContainer.current,
         style: 'mapbox://styles/mapbox/streets-v11',
         center: [viewport.latitude, viewport.longitude],
         zoom: 4
       });
 
-      mapNew.on('load', () => {
+      propertyMap.on('load', () => {
         setMap(map);
-        mapNew.resize();
+        propertyMap.resize();
       });
-      //   addMarkers(mapNew);
+      createMarker(propertyMap);
     };
 
     if (!map) initializeMap({ setMap, mapContainer });
-  }, [map]);
+  }, [createMarker, map, viewport.latitude, viewport.longitude]);
+
+  useEffect(() => {
+    renderMap();
+  }, [renderMap]);
 
   return (
     <div className='row'>
       <div className='col-xs-12'>
-        <div style={{ margin: '0 auto' }}>
+        <div>
           <div
             {...viewport}
             ref={el => {
