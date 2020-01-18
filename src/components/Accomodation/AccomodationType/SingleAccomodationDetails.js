@@ -8,45 +8,38 @@ import _isNull from 'lodash/isNull';
 import _isUndefined from 'lodash/isUndefined';
 import AccomodationRooms from './AccomodationRooms';
 import AccomodationMap from '../../../components/Maps/AccomodationMap';
+import { useHistory } from 'react-router-dom';
 
 const SingleAccomodationDetails = props => {
   const id = props.match.params.id;
   const [accomodation, setAccomodation] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const history = useHistory();
 
-  const displayAccomodationDetails = useCallback(async () => {
+  const getAccomodationDetails = useCallback(async () => {
     try {
       const responseData = await getAccomodationData();
 
       const foundAccomodationById = responseData.find(
         item => item.id === parseInt(id, 10)
       );
-      setAccomodation(foundAccomodationById);
-      setIsLoading(false);
+
+      if (foundAccomodationById) {
+        setAccomodation(foundAccomodationById);
+        setIsLoading(false);
+      } else {
+        history.push('/404');
+      }
     } catch (error) {
       console.log(error);
     }
-  }, [id]);
+  }, [history, id]);
 
   useEffect(() => {
-    displayAccomodationDetails();
-  }, [displayAccomodationDetails]);
+    getAccomodationDetails();
+  }, [getAccomodationDetails]);
 
-  const accomodationFound =
-    !_isUndefined(accomodation) &&
-    !_isEmpty(accomodation) &&
-    !_isNull(accomodation)
-      ? accomodation
-      : {};
-
-  const {
-    name,
-    description,
-    location,
-    facilities,
-    rooms,
-    type
-  } = accomodationFound;
+  const { name, description, location, facilities, rooms, type } = accomodation;
   const accmodationType = !_isEmpty(type) || !_isUndefined(type) ? type : {};
 
   return (
