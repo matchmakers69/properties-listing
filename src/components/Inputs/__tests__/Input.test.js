@@ -1,5 +1,5 @@
 import React from 'react';
-import { configure, mount, shallow } from 'enzyme';
+import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Input from '../Input';
 import { findByTestAttr } from '../../../../tests/testUtils';
@@ -51,11 +51,11 @@ describe('<Input />', () => {
     );
   });
 
-  it('allows user to fill form', () => {
+  it('simulate change', () => {
     const accomodationPostCode = updateInput(
       Input,
       '[data-test="accomodationInput"]',
-      '222',
+      '198',
       '198'
     );
     expect(props.onChange).toBeCalledTimes(1);
