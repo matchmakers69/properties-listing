@@ -43,7 +43,6 @@ export class AccomodationProvider extends Component {
     accomodationType = accomodationTypes.find(
       item => item.id === parseInt(id, 10)
     );
-    console.log(accomodationType);
     return accomodationType;
   };
 
