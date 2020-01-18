@@ -1,5 +1,43 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Project's description
+
+### Using given data
+
+Files were given as a json files so in theory no async call would not be required, however to create a bit more live situation, I have made async calls just mock fetching data from server. Both functions kept in separate folder.
+
+### Functionality
+
+I have decided to use React hooks, contextAPI and HOC.
+
+ContextApi is always a matter of discussion, shall we used or use Redux instead. I am using the the project for demonstration how it can work with useContext hook as well. But as I said, in this specific situation we could pass props everywhere and that would work as well.
+
+Projest has 3 main parts: Home page where all accomodations were grouped into types, after the type was picked, we render chosen group (for example hotels ). We can see each property in details clicking chosen one.
+
+### Extra features
+
+The task includes basic requirements as well as I wanted to expand it little bit so I have made some extras:
+
+1. Pagination
+2. Filters
+3. Maps
+4. React Router
+5. Tests
+
+### Filters
+
+Only to demonstrate, we can filter accomodation standars or amount of stars, the given sample data is only an example so I am aware in real life project we could filter better the address details for example.
+
+## Tests
+
+I have written several tests but to testing all component would be too far from the scope as well as there is no point to test every component anyway. I have written few only as an extra and to give an idea how it coul work.
+
+## Things could work better
+
+Pagination: Pagination button click does not make any new async call - page parameter was not given - in real life data structure woul look a bit different. I have added parameters using useHistory but currently browser back button does not work very well.
+
+Map couuld also work better, coorinates given are only for demo usage, no popup, eventually coul be added.
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -24,45 +62,3 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
