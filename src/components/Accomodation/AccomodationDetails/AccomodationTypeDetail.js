@@ -89,7 +89,9 @@ const AccomodationTypeDetail = ({
 
   useEffect(() => {
     const pageFromParams = queryString.parse(window.location.search).page;
+    
     const page = pageFromParams ? parseInt(pageFromParams, 10) : 1;
+    console.log(pageFromParams)
 
     const totalPagesArray = getPageNumbers(
       accomodations,

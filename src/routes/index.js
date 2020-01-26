@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import AccomodationTypes from '../views/AccomodationTypes';
+import Hooks from '../views/Hooks';
 import AccomodationTypesDetails from '../components/Accomodation/AccomodationDetails/AccomodationTypesDetails';
 import SingleAccomodationDetails from '../components/Accomodation/AccomodationType/SingleAccomodationDetails';
 import NotFound from './NotFound';
@@ -19,6 +20,7 @@ export const Routes = () => {
         path='/accomodation-type/accomodation/:id'
         component={SingleAccomodationDetails}
       />
+       <Route path='/hooks' component={Hooks} />
       <Route component={NotFound} />
     </Switch>
   );

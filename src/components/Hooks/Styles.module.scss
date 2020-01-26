@@ -1,0 +1,33 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.categoryHeader {
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.dropDownWrapper {
+    display: none;
+    &.activeDropDown {
+        display: block;
+    }
+}
+
+.dropDownList {
+    list-style: none;
+    padding: 0;
+    margin:0;
+   
+   
+    li {
+        line-height: 1.2;
+    }
+}
+
+.formSearch {
+    margin-bottom: 5px;
+    .inputSeparator {
+        margin-bottom:10px;
+    }
+}
+
