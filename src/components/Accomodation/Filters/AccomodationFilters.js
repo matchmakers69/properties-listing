@@ -3,6 +3,7 @@ import styles from './Styles.module.scss';
 import cx from 'classnames';
 import PropTypes from 'prop-types';
 import ButtonAccomodation from '../../../components/Buttons/ButtonAccomodation';
+import Select from '../../Select/Select';
 import Input from '../../Inputs/Input';
 
 const AccomodationFilters = ({
@@ -14,6 +15,7 @@ const AccomodationFilters = ({
   const getSortOrderValue = sortOrder => {
     return sortOrder.replace(' ', '').toLowerCase();
   };
+
   return (
     <div className={cx('row', `${styles.filterRowMarginBottom}`)}>
       <div className='col-xs-12 col-sm-6 col-md-3'>
@@ -36,20 +38,14 @@ const AccomodationFilters = ({
 
       <div className='col-xs-12 col-sm-6 col-md-3'>
         <p className={styles.labelParagraph}>Filter by standard</p>
-        <select
+        <Select
           value={sortOrder}
           name='sortOrder'
+          data-test='select-by-standard'
+          options={sortOrders}
           onChange={handleFilteronChange}
-        >
-          <option disabled value=''>
-            Select from highest to lowest standard
-          </option>
-          {sortOrders.map((order, i) => (
-            <option key={i} value={getSortOrderValue(order)}>
-              {order}
-            </option>
-          ))}
-        </select>
+          placeholder='Choose rating'
+        />
       </div>
       <div className='col-xs-12 col-sm-6 col-md-3'>
         <p className={styles.labelParagraph}>Filter by raritg start</p>

@@ -29,7 +29,10 @@ const AccomodationTypeDetail = ({
     ratingStar: '',
     stars: [1, 2, 3, 4],
     sortOrder: '',
-    sortOrders: ['Highest Standard', 'Lowest Standard'],
+    sortOrders: [
+      { value: 'higheststandard', label: 'Highest Standard' },
+      { value: 'loweststandard', label: 'Lowest Standard' }
+    ],
     addressCode: ''
   };
 
@@ -89,9 +92,8 @@ const AccomodationTypeDetail = ({
 
   useEffect(() => {
     const pageFromParams = queryString.parse(window.location.search).page;
-    
+
     const page = pageFromParams ? parseInt(pageFromParams, 10) : 1;
-    console.log(pageFromParams)
 
     const totalPagesArray = getPageNumbers(
       accomodations,

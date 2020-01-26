@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> renders correctly 1`] = `
+<input
+  className="accomodationInput"
+  data-test="accomodationInput"
+  maxLength="6"
+  name=""
+  onChange={[MockFunction]}
+  placeholder="Search via postcode eg. 25"
+  type=""
+  value="199"
+/>
+`;
