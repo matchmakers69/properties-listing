@@ -1,32 +1,44 @@
-import React from "react";
-import styles from "./Styles.module.scss";
+import React, { useState, useReducer } from 'react';
+import styles from './Styles.module.scss';
 
-const AddSearchForm = ({ inputValue,handleInputOnChange }) => {
-  const { serchInputValue, searchInputContent } = inputValue;
+const AddSearchForm = () => {
+  const initialState = {
+    searchValue: '',
+    expenseContent: ''
+  };
+  const addSearchReducer = (state, newState) => {
+    return { ...state, ...newState };
+  };
+
+  const [inputValue, setInputValue] = useReducer(
+    addSearchReducer,
+    initialState
+  );
+  const handleInputChange = e => {
+    const target = e.target;
+    const { name, value } = target;
+    setInputValue({
+      [name]: value
+    });
+  };
   return (
     <>
       <form className={styles.formSearch}>
         <div className={styles.inputSeparator}>
           <input
-            name="serchInputValue"
-            value={serchInputValue}
-            placeholder="Search your expense"
-            type="text"
-            onChange={handleInputOnChange}
+            value={inputValue.searchValue}
+            name='searchValue'
+            placeholder='Search your expense'
+            type='text'
+            onChange={handleInputChange}
           />
         </div>
 
+        {/* <div className={styles.inputSeparator}>
+          <input value='' name='' placeholder='Add expense' type='text' />
+        </div> */}
         <div className={styles.inputSeparator}>
-          <input
-            value={searchInputContent}
-            name="searchInputContent"
-            placeholder="Add expense"
-            type="text"
-            onChange={handleInputOnChange}
-          />
-        </div>
-        <div className={styles.inputSeparator}>
-          <button type="submit">Add expense</button>
+          <button type='submit'>Add expense</button>
         </div>
       </form>
     </>

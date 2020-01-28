@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Select /> renders correctly 1`] = `
+<select
+  name=""
+  onChange={[MockFunction]}
+  value=""
+>
+  <option
+    disabled={true}
+    value=""
+  >
+    Choose rating
+  </option>
+</select>
+`;

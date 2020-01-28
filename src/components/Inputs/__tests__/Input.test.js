@@ -1,8 +1,7 @@
 import React from 'react';
-import { configure, shallow } from 'enzyme';
+import { configure, shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Input from '../Input';
-import toJson from 'enzyme-to-json';
 
 configure({ adapter: new Adapter() });
 
@@ -22,33 +21,35 @@ describe('<Input />', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  // it('Input component exists', () => {
-  //   const component = findByTestAttr(Input, 'accomodationInput');
-  //   expect(component.length).toBe(1);
-  // });
+  it('input value change', () => {
+    const onChange = jest.fn();
 
-  // it('Input should have placeholder', () => {
-  //   expect(
-  //     Input.find('[data-test="accomodationInput"]').props().placeholder
-  //   ).toBe('Search via postcode eg. 25');
-  // });
+    const props = {
+      value: '',
+      name: '',
+      input: {
+        onChange
+      },
+      maxLength: '6',
+      placeholder: 'Hello world',
+      onChange
+    };
 
-  // it('renders input with given value', () => {
-  //   expect(Input.find('[data-test="accomodationInput"]').props().value).toEqual(
-  //     '198'
-  //   );
-  // });
+    const component = mount(<Input {...props} />);
 
-  // it('simulate change', () => {
-  //   const accomodationPostCode = updateInput(
-  //     Input,
-  //     '[data-test="accomodationInput"]',
-  //     '198',
-  //     '198'
-  //   );
-  //   expect(props.onChange).toBeCalledTimes(1);
-  //   Input.find('[data-test="accomodationInput"]').simulate('change');
+    const value = 'hello world';
+    component.find('input').simulate('change', { target: { value } });
 
-  //   expect(accomodationPostCode.props().value).toBe('198');
-  // });
+    expect(onChange.mock.calls[0][0].target).toEqual(
+      expect.objectContaining({
+        value
+      })
+    );
+
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({
+        target: { value }
+      })
+    );
+  });
 });

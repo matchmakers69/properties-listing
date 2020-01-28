@@ -1,12 +1,23 @@
 import React from 'react';
 import { configure, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import { findByTestAttr } from '../../../../../tests/testUtils';
 import AccomodationFilters from '../AccomodationFilters';
 
 configure({ adapter: new Adapter() });
 
 const props = {
-  handleFilteronChange: jest.fn()
+  handleFilteronChange: jest.fn(),
+  filterValue: {
+    addressCode: '',
+    ratingStar: '',
+    stars: [],
+    sortOrder: '',
+    sortOrders: []
+  },
+  label: '',
+  handleResetFilters: jest.fn(),
+  value: ''
 };
 
 const setup = () => {
@@ -20,10 +31,16 @@ describe('<AccomodationFilters />', () => {
     wrapper = setup();
   });
 
-  it('call change select by standard', () => {
+  it('render component without crash', () => {
+    const component = findByTestAttr(wrapper, 'accomodation-filters');
+    expect(component.length).toBe(1);
+  });
+  it('calls select on change', () => {
     wrapper
       .find('[data-test="select-by-standard"]')
-      .simulate('change', { target: { value: 100 } });
-    expect(props.handleFilterChange).toHaveBeenCalledTimes(1);
+      .at(0)
+      .simulate('change', { target: { value: 'higheststandard' } });
+
+    expect(props.handleFilteronChange).toHaveBeenCalledTimes(1);
   });
 });
