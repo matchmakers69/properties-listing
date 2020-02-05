@@ -11,16 +11,16 @@ const Select = ({
 }) => {
   return (
     <select value={value} name={name} data-test={dataTest} onChange={onChange}>
-      <option value='' disabled>
-        {placeholder}
-      </option>
-      {options.map((opt, index) => {
-        return (
-          <option key={`${opt}-${index}`} value={opt.value} label={opt.label}>
-            {opt.label}
-          </option>
-        );
-      })}
+      {placeholder && (
+        <option value='' disabled>
+          {placeholder}
+        </option>
+      )}
+      {options.map(opt => (
+        <option key={opt.label} value={opt.value} label={opt.label}>
+          {opt.label}
+        </option>
+      ))}
     </select>
   );
 };
@@ -30,7 +30,8 @@ Select.propTypes = {
   name: PropTypes.string.isRequired,
   'data-test': PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  options: PropTypes.array.isRequired
+  options: PropTypes.array.isRequired,
+  placeholder: PropTypes.string.isRequired
 };
 
 export default Select;
